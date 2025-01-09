@@ -13,6 +13,11 @@
 #출금을 요청한 금액을 balance 변수에서 뺀 결과가 들어가도록 코드를 작성해주세요
 #영수증에 다음 순서로 값이 들어가도록 코드를 만들어주세요 -> "출금",withdraw_amount, balance 순으로 데이터 넣어주세요.
 #가지고 있는 금액보다 출금을 원하는 금액이 클 때 가지고 있는 금액만큼만 출금되도록 코드를 작성해주세요
+
+#숙제#
+#입력 검증 및 에러  처리 추가
+#잘못된 입력 값(숫자가 아닌값,음수 값 등)을 처리하도록 기능을 추가해주세요
+#유효하지 않은 메뉴 선택시 경고 메시지 또는 사용방법 재안내를 해주세요
 balance=3000  #현재 잔액을 보여주세요
 receipts = [] #[]대괄호 : list , {key:value}중괄호: dict , ()소괄호: tuple
 while True:
@@ -21,10 +26,13 @@ while True:
     if num == "4":
         break
     if num == "1":
-        deposit_amount=int(input("입금할 금액을 입력해주세요:")) #input():내장함수, int():정수형 데이터로 형변환해주는 내장함수
-        balance += deposit_amount
-        receipts.append(("입금",deposit_amount,balance))
-        print(f'입금하신 금액은 {deposit_amount}원이고, 현재 잔액은 {balance}원 입니다')
+        deposit_amount = input("입금할 금액을 입력해주세요:") #input():내장함수, int():정수형 데이터로 형변환해주는 내장함수
+        if deposit_amount.isdigit() and int(deposit_amount) >0: #1000->True , 천원->False
+            balance += int(deposit_amount)
+            receipts.append(("입금",deposit_amount,balance))
+            print(f'입금하신 금액은 {deposit_amount}원이고, 현재 잔액은 {balance}원 입니다')
+    else:
+        print("입금한 금액을 숫자 형태와 음수가 아닌 값을 입력해주세요.")
     if num == "2":
         withdraw_amount=int(input("출금할 금액을 입력해주세요:"))
         withdraw_amount = min(balance , withdraw_amount)
